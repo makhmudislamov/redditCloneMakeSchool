@@ -3,7 +3,7 @@ const app = express()
 
 var exphbs = require('express-handlebars');
 
-app.engine('handlebars', exphbs({ defaultLayout: 'posts-index' }));
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 let posts = [
