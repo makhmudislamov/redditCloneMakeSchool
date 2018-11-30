@@ -1,12 +1,10 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-module.exports = mongoose.model('Post', {
-    title: String,
-    url: String,
-    summary: String
+const PostSchema = new Schema({
+    title: { type: String, required: true },
+    url: { type: String, required: true },
+    summary: { type: String, required: true }
 });
-// let posts = [
-//     { title: "Fantastic post", postBody: "hlkjhlkhlkhlkh" },
-//     { title: "Awesome Movie", postBody: "ifasdfbisdufbi" }
-// ]
+
+module.exports = mongoose.model("Post", PostSchema);
