@@ -4,7 +4,7 @@
 <a href="/posts/new">New Post</a>
 
 
-<div class="row">
+{{!-- <div class="row">
     {{#each post}}
     <div class="col-sm-3">
         <h2><a href="/posts/{{this._id}}">{{this.title}}</a></h2>
@@ -12,4 +12,13 @@
         <small>Summary: {{this.summary}}</small>
     </div>
     {{/each}}
-</div>
+</div> --}}
+
+<ul>
+    {{#each post}}
+    <li class="list-group-item">
+        <div class="lead">{{this.title}}</div>
+        <a href="{{this.url}}" target="_blank">{{this.url}}<a>
+    </li>
+    {{/each}}
+</ul>
