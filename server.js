@@ -2,6 +2,11 @@ const express = require('express')
 const app = express()
 const posts = require('./controllers/posts');
 var exphbs = require('express-handlebars');
+// const mongoose = require('mongoose');
+
+
+
+// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/redditclone', { useNewUrlParser: true });
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
