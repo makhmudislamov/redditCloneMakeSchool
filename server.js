@@ -21,9 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 
-app.get('/', (req, res) => {
-    res.render('posts-index', { posts: posts });
-})
+
 
 // INDEX
 // app.get('/', (req, res) => {
