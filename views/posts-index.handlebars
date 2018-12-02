@@ -3,21 +3,12 @@
 
 <a href="/posts/new">New Post</a>
 
-
-{{!-- <div class="row">
-    {{#each post}}
-    <div class="col-sm-3">
-        <h2><a href="/posts/{{this._id}}">{{this.title}}</a></h2>
-        <small>URL: {{this.url}}</small> <br>
-        <small>Summary: {{this.summary}}</small>
-    </div>
-    {{/each}}
-</div> --}}
-
 <ul>
     {{#each post}}
     <li class="list-group-item">
-        <div class="lead">{{this.title}}</div>
+        <div class="lead">
+            <a href="/posts/{{this._id}}" class="lead">{{this.title}}</a>
+        </div>
         <a href="{{this.url}}" target="_blank">{{this.url}}<a>
     </li>
     {{/each}}
