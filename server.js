@@ -34,10 +34,7 @@ app.use(expressValidator());
 //         })
 // })
 
-// NEW
-app.get('/posts/new', (req, res) => {
-    res.render('posts-new', {});
-})
+
 
 const port = process.env.PORT || 3000;
 app.listen(port);

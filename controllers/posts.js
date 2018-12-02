@@ -13,6 +13,24 @@ module.exports = function (app)  {
             });
     });
 
+    // SHOW one post
+    app.get("/posts/:id", function (req, res) {
+        // LOOK UP THE POST
+        Post.findById(req.params.id)
+            .then(post => {
+                res.render("post-show", { post });
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    });
+
+    // NEW
+    app.get('/posts/new', (req, res) => {
+        res.render('posts-new', {});
+    })
+
+
     // CREATE
     app.post('/posts/new', (req, res) => {
         // INSTANTIATE INSTANCE OF POST MODEL
