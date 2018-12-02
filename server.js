@@ -21,21 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 
-
-
-// INDEX
-// app.get('/', (req, res) => {
-//     Charity.find()
-//         .then(charity => {
-//             res.render('orgs-index', { charity: charity });
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         })
-// })
-
-
-
 const port = process.env.PORT || 3000;
 app.listen(port);
 console.log("app is up");
