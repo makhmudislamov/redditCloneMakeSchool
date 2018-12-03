@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const posts = require('./controllers/posts');
+const auth = require('./controllers/auth');
 var exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -26,4 +27,5 @@ app.listen(port);
 console.log("app is up");
 
 posts(app);
+auth(app);
 module.exports = app;
