@@ -1,6 +1,13 @@
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const should = chai.should();
+
+chai.use(chaiHttp);
+
 // Import the Post model from our models folder so we
 // we can use it in our tests.
 const Post = require("../models/post.js");
+const server = require('../server')
 
 describe("Post", () => {
     it("should create with valid attributes at POST /posts", done => {
@@ -14,14 +21,14 @@ describe("Post", () => {
 
         Post.findOneAndRemove(post, function () {
             Post.find(function (err, posts) {
-                var postCount = posts.count;
+                var postCount = posts.length;
                 chai
-                    .request("localhost:3000")
+                    .request(server)
                     .post("/posts/new")
                     .send(post)
                     .then(res => {
                         Post.find(function (err, posts) {
-                            postCount.should.be.equal(posts.length + 1);
+                            postCount.should.be.equal(posts.length - 1);
                             res.should.have.status(200);
                             return done();
                         });

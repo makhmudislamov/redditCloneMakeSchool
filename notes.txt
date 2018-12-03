@@ -9,3 +9,15 @@ ROUTES:
 - Associate posts, comments with their author
 - Make comments on comments
 - Vote a post up or down
+
+
+BLOCKER at 12/2. Page 4 - Test:
+Error message >>> done() is not called
+SOLUTION: 
+(Vincenzo) >>> 1) declared chai:
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const should = chai.should();
+2) instead of .request(localhost: 3000) do .request(server) after const server = require('../server')
+3) while npm run test, nodemon server.js should be off
+
