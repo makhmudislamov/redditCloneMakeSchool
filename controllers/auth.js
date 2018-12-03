@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require("../models/user");
 
 
@@ -16,10 +17,12 @@ module.exports = (app) => {
         user
             .save()
             .then(user => {
+                var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
                 res.redirect("/");
             })
             .catch(err => {
                 console.log(err.message);
+                return res.status(400).send({ err: err });
             });
     });
 
