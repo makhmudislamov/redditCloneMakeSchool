@@ -1,4 +1,6 @@
 const dotenv = require('dotenv').config();
+var cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 const express = require('express')
 const app = express()
@@ -16,6 +18,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/redditclone', {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+app.use(cookieParser());
 
 // Use Body Parser
 app.use(bodyParser.json());
