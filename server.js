@@ -26,6 +26,8 @@ const port = process.env.PORT || 3000;
 app.listen(port);
 console.log("app is up");
 
+// controllers
 posts(app);
 auth(app);
+
 module.exports = app;
