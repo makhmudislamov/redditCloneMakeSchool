@@ -1,8 +1,10 @@
 const Comment = require('../models/comment');
+const Post = require('../models/post');
 
 module.exports = function (app) {
+    
     // CREATE Comment
-    app.post("/posts/:postId/comments", function (req, res) {
+    app.post('/posts/:postId/comments', function (req, res) {
         // INSTANTIATE INSTANCE OF MODEL
         const comment = new Comment(req.body);
 
@@ -10,11 +12,18 @@ module.exports = function (app) {
         comment
             .save()
             .then(comment => {
-                // REDIRECT TO THE ROOT
-                return res.redirect(`/`);
+                return Post.findById(req.params.postId);
+            })
+            .then(post => {
+                post.comments.unshift(comment);
+                return post.save();
+            })
+            .then(post => {
+                res.redirect(`/`);
             })
             .catch(err => {
                 console.log(err);
             });
     });
+
 };

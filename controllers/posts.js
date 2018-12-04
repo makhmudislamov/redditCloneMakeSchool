@@ -35,7 +35,7 @@ module.exports = function (app)  {
     // SHOW one post
     app.get("/posts/:id", function (req, res) {
         // LOOK UP THE POST
-        Post.findById(req.params.id)
+        Post.findById(req.params.id).populate('comments')
             .then(post => {
                 res.render("post-show", { post });
             })
