@@ -29,3 +29,10 @@ Solution: moved SHOW one post route after CREATE route
 
 TODO: 
 Check subbreddit controller if its working right
+
+BLOCKER at 12/4 when trying to sign up. receivung error:
+dyld: lazy symbol binding failed: Symbol not found: __ZN4node19GetCurrentEventLoopEPN2v87IsolateE
+  Referenced from: /Users/BarbarianMogul/Desktop/MakeSchool/Courses/TERM 2 - 2018/BEW 1.2/tutorials-projects/redditclone/node_modules/bcrypt/lib/binding/bcrypt_lib.node
+  Expected in: flat namespace
+
+  

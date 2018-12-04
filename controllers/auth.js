@@ -13,7 +13,6 @@ module.exports = function (app) {
     app.post("/sign-up", (req, res) => {
         // Create User
         const user = new User(req.body);
-
         user
             .save()
             .then(user => {
