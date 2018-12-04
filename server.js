@@ -27,6 +27,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 
+
+// SUBREDDIT
+app.get("/n/:subreddit", function (req, res) {
+    Post.find({ subreddit: req.params.subreddit })
+        .then(posts => {
+            res.render("posts-index.handlebars", { posts });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+
 const port = process.env.PORT || 3000;
 app.listen(port);
 console.log("app is up");
