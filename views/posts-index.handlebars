@@ -11,8 +11,17 @@
             </div>
                 <a href="{{this.url}}" target="_blank">{{this.url}}<a>
             <div class="text-right">
-                {{this.subreddit}}
+                <a href="/n/{{this.subreddit}}">{{this.subreddit}}</a>
             </div>
         </li>
+
+        {{!-- <li class="list-group-item">
+            <div class="lead">{{this.title}}</div>
+            <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+            <div class="text-right">
+                <a href="/n/{{this.subreddit}}">{{this.subreddit}}</a>
+            </div>
+        </li> --}}
+
     {{/each}}
 </ul>

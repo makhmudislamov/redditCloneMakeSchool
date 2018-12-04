@@ -21,3 +21,8 @@ const should = chai.should();
 2) instead of .request(localhost: 3000) do .request(server) after const server = require('../server')
 3) while npm run test, nodemon server.js should be off
 
+
+BLOCKER at 12/3 >> jumped to page 7 sign in/log in
+added subreddit input fields >> page 5 (issue)
+then posts/new route stopped working.
+
