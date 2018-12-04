@@ -25,4 +25,5 @@ const should = chai.should();
 BLOCKER at 12/3 >> jumped to page 7 sign in/log in
 added subreddit input fields >> page 5 (issue)
 then posts/new route stopped working.
+Solution: moved SHOW one post route after CREATE route
 
