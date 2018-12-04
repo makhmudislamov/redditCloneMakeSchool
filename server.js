@@ -7,6 +7,8 @@ const app = express()
 const posts = require('./controllers/posts');
 const auth = require('./controllers/auth');
 const comments = require('./controllers/comments');
+const subreddits = require('./controllers/subreddits');
+
 var exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -29,16 +31,7 @@ app.use(expressValidator());
 
 
 
-// SUBREDDIT
-app.get("/n/:subreddit", function (req, res) {
-    Post.find({ subreddit: req.params.subreddit })
-        .then(posts => {
-            res.render("posts-index.handlebars", { posts });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
+
 
 
 const port = process.env.PORT || 3000;
@@ -49,5 +42,6 @@ console.log("app is up");
 posts(app);
 auth(app);
 comments(app);
+subreddits(app);
 
 module.exports = app;

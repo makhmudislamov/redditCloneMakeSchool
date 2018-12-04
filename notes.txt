@@ -27,3 +27,5 @@ added subreddit input fields >> page 5 (issue)
 then posts/new route stopped working.
 Solution: moved SHOW one post route after CREATE route
 
+TODO: 
+Check subbreddit controller if its working right
