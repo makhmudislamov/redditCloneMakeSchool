@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config(); // TODO: try without config()
 var cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
@@ -28,11 +28,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // should go after body parser
 app.use(expressValidator());
-
-
-
-
-
 
 const port = process.env.PORT || 3000;
 app.listen(port);

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/user.js");
+// const bcrypt = require("bcrypt");
 
 
 module.exports = function (app) {
@@ -19,7 +20,6 @@ module.exports = function (app) {
                 var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
                 res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
                 console.log(req.cookies);
-                console.log("created user")
                 res.redirect("/");
             })
             .catch(err => {
