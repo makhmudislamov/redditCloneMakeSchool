@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/user.js");
-// const bcrypt = require("bcrypt");
+// const bcrypt = require("bcryptjs");
 
 
 module.exports = function (app) {
@@ -14,9 +14,7 @@ module.exports = function (app) {
     app.post("/sign-up", (req, res) => {
         // Create User
         const user = new User(req.body);
-        user
-            .save()
-            .then(user => {
+        user.save().then(user => {
                 var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
                 res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
                 console.log(req.cookies);
@@ -36,7 +34,7 @@ module.exports = function (app) {
 
     // LOGIN FORM
     app.get('/login', (req, res) => {
-        res.render('login.handlebars');
+        res.render('login');
     });
 
     // LOGIN
@@ -44,19 +42,18 @@ module.exports = function (app) {
         const username = req.body.username;
         const password = req.body.password;
         // Find this user name
-        User.findOne({ username }, "username password")
+        User.findOne({username}, "username password")
             .then(user => {
                 if (!user) {
                     // User not found
-                    return res.status(401).send({ message: "Wrong Username or Password" });
+                    return res.status(401).send({ message: "Wrong Username or Password, user not found" });
                 }
                 // Check the password
                 user.comparePassword(password, (err, isMatch) => {
                     if (!isMatch) {
                         // Password does not match
                         console.log("wrong pass");
-                        return res.status(401).send({ message: "Wrong Username or password" });
-                        
+                        return res.status(401).send({ message: "Wrong Username or password" });                        
                     }
                     // Create a token
                     const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
