@@ -4,9 +4,11 @@ module.exports = function (app)  {
 
     // INDEX
     app.get('/', (req, res) => {
+        const currentUser = req.user;
         Post.find()
             .then(post => {
-                res.render('posts-index', { post: post });
+                console.log('you are current user')
+                res.render('posts-index', { post: post, currentUser: currentUser });
             })
             .catch(err => {
                 console.log(err.message);
@@ -21,15 +23,16 @@ module.exports = function (app)  {
 
 
     // CREATE
-    app.post('/posts/new', (req, res) => {
-        // INSTANTIATE INSTANCE OF POST MODEL
-        const post = new Post(req.body);
+    app.post("/posts", (req, res) => {
+        if (req.user) {
+            const post = new Post(req.body);
 
-        // SAVE INSTANCE OF POST MODEL TO DB
-        post.save((err, post) => {
-            // REDIRECT TO THE ROOT
-            return res.redirect(`/`);
-        })
+            post.save(function (err, post) {
+                return res.redirect(`/`);
+            });
+        } else {
+            return res.status(401); // UNAUTHORIZED
+        }
     });
 
     // SHOW one post
