@@ -1,9 +1,9 @@
 const dotenv = require('dotenv').config(); // TODO: try without config()
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-
 const express = require('express')
 const app = express()
+const methodOverride = require('method-override')
 const posts = require('./controllers/posts');
 const auth = require('./controllers/auth');
 const comments = require('./controllers/comments');
@@ -22,7 +22,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 app.use(cookieParser());
-
+app.use(methodOverride('_method'))
 const checkAuth = (req, res, next) => {
     console.log("Checking authentication");
     if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {

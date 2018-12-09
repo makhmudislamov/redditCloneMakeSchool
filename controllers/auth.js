@@ -1,15 +1,10 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/user.js");
-// const bcrypt = require("bcryptjs");
-
-
 module.exports = function (app) {
-
     // SIGN UP FORM
     app.get("/sign-up", (req, res) => {
         res.render("sign-up");
     });
-
     // SIGN UP POST
     app.post("/sign-up", (req, res) => {
         // Create User
@@ -25,18 +20,15 @@ module.exports = function (app) {
                 return res.status(400).send({ err: err });
             });
     });
-
     // LOGOUT
     app.get('/logout', (req, res) => {
         res.clearCookie('nToken');
         res.redirect('/');
     });
-
     // LOGIN FORM
     app.get('/login', (req, res) => {
         res.render('login');
     });
-
     // LOGIN
     app.post("/login", (req, res) => {
         const username = req.body.username;
@@ -67,7 +59,5 @@ module.exports = function (app) {
             .catch(err => {
                 console.log(err);
             });
-    });
-
-    
+    });  
 }

@@ -1,7 +1,5 @@
 const Post = require('../models/post.js');
-
 module.exports = function (app)  {
-
     // INDEX
     app.get('/', (req, res) => {
         const currentUser = req.user;
@@ -14,19 +12,14 @@ module.exports = function (app)  {
                 console.log(err.message);
             });
     });
-
-
     // NEW
     app.get('/posts/new', (req, res) => {
         res.render('posts-new', {});
     })
-
-
     // CREATE
-    app.post("/posts", (req, res) => {
+    app.post('/posts/new', (req, res) => {
         if (req.user) {
             const post = new Post(req.body);
-
             post.save(function (err, post) {
                 return res.redirect(`/`);
             });
@@ -34,7 +27,6 @@ module.exports = function (app)  {
             return res.status(401); // UNAUTHORIZED
         }
     });
-
     // SHOW one post
     app.get("/posts/:id", function (req, res) {
         // LOOK UP THE POST
@@ -45,6 +37,13 @@ module.exports = function (app)  {
             .catch(err => {
                 console.log(err.message);
             });
-    });
-    
+    }); 
+    // DELETE
+    app.delete('/posts/:id', function (req, res) {
+        Post.findByIdAndRemove(req.params.id).then((post) => {
+            res.redirect('/');
+        }).catch((err) => {
+            console.log(err.message);
+        })
+    }) 
 };
