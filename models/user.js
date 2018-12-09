@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/redditclone', { useNewUrlParser: true });
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date },
     username: { type: String, required: true },
-    password: { type: String, select: false }  
+    password: { type: String, select: false },
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }]
 });
 
 // Must use function here! ES6 => functions do not bind this!
@@ -17,7 +19,6 @@ UserSchema.pre("save", function(next) {
     if (!this.createdAt) {
         this.createdAt = now;
     }
-
     // ENCRYPT PASSWORD
     const user = this;
     if (!user.isModified("password")) {

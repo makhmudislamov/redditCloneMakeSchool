@@ -39,5 +39,4 @@ SOLUTION >>>> install bcryptjs instead of bcrypt
 TODO: work on state show (user should know they signed up, in or out)
 
 
-
   

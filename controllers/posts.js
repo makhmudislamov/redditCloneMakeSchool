@@ -1,11 +1,12 @@
 const Post = require('../models/post.js');
+const User = require('../models/user.js'); 
 module.exports = function (app)  {
     // INDEX
     app.get('/', (req, res) => {
         const currentUser = req.user;
         Post.find()
             .then(post => {
-                console.log('you are current user')
+                console.log(`currenUser: ${currentUser}`)
                 res.render('posts-index', { post: post, currentUser: currentUser });
             })
             .catch(err => {
@@ -18,21 +19,30 @@ module.exports = function (app)  {
     })
     // CREATE
     app.post('/posts/new', (req, res) => {
-        if (req.user) {
+        if (req.user){
             const post = new Post(req.body);
-            post.save(function (err, post) {
-                return res.redirect(`/`);
-            });
+            post.author = req.user._id;
+            post.save().then(post => {
+                    return User.findById(req.user._id);
+                }).then(user => {
+                    user.posts.unshift(post);      
+                    user.save();
+                    // TODO: REDIRECT TO THE NEW POST
+                    res.redirect('/');
+                })
+                .catch(err => {
+                    console.log(err.message);
+                });
         } else {
             return res.status(401); // UNAUTHORIZED
         }
     });
     // SHOW one post
-    app.get("/posts/:id", function (req, res) {
+    app.get('/posts/:id', function (req, res) {
         // LOOK UP THE POST
         Post.findById(req.params.id).populate('comments')
             .then(post => {
-                res.render("post-show", { post });
+                res.render('post-show', { post });
             })
             .catch(err => {
                 console.log(err.message);
