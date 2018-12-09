@@ -39,10 +39,16 @@ module.exports = function (app)  {
     });
     // SHOW one post
     app.get('/posts/:id', function (req, res) {
+        const currentUser = req.user;
         // LOOK UP THE POST
-        Post.findById(req.params.id).populate('comments')
+        Post.findById(req.params.id).populate('author').populate({
+            path: 'comments',
+            populate: {
+                path: 'author'
+            }
+        })
             .then(post => {
-                res.render('post-show', { post });
+                res.render('post-show', { post, currentUser });
             })
             .catch(err => {
                 console.log(err.message);

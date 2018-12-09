@@ -10,23 +10,38 @@ module.exports = function (app) {
             const comment = new Comment(req.body)
             comment.author = req.user._id;
             //save instance of comment model to DB
-            comment.save().then((comment) => {
-                return User.findById(req.user._id)
-            }).then(user => {
+            comment
+            .save()
+            .then((comment) => {
+                return Post.findById(req.user._id)
+            }).then(post => {
+                console.log('crashing here')
+                post.comments.unshift(comment);
+                console.log('here')
+                return post.save();
+                // return Post.findById(req.params.postId);
+            }).then(comment => {
+                // post.comments.unshift(comment)
+                // return post.save()
+                return User.findById(req.user._id);
+            })
+            .then(user => {
+                // console.log(comment);
+                // // TODO: redirect to current post
+                // res.redirect('/');
                 user.comments.unshift(comment);
                 user.save();
-                return Post.findById(req.params.postId);
-            }).then(post => {
-                post.comments.unshift(comment)
-                return post.save()
-            }).then((post) => {
-                console.log(comment);
-                res.redirect(`/posts/${req.params.postId}`);
-            }).catch(err => {
+                res.redirect('/');
+            })
+            .then(post => {
+                res.redirect('/');
+            })
+            .catch(err => {
+                console.log("oops")
                 console.log(err.message);
             })
         } else {
-            return res.status(401);
+            return res.status(401).send({message: "login first"});
         }
     })
 
