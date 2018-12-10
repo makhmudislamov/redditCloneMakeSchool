@@ -41,3 +41,4 @@ TODO: work on state show (user should know they signed up, in or out)
 
 BLOCKER: logged in user cant post comment
 Cannot read property 'comments' of null
+SOLUTION >>> comments were missing in user model
