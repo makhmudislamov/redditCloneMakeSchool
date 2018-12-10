@@ -13,9 +13,13 @@ module.exports = function (app) {
             comment
             .save()
             .then((comment) => {
-                return Post.findById(req.user._id)
+                console.log(req.body)
+                return Post.findById(req.params.postId)
+                
             }).then(post => {
                 console.log('crashing here')
+                console.log(post)
+
                 post.comments.unshift(comment);
                 console.log('here')
                 return post.save();
@@ -29,6 +33,7 @@ module.exports = function (app) {
                 // console.log(comment);
                 // // TODO: redirect to current post
                 // res.redirect('/');
+                console.log(user)
                 user.comments.unshift(comment);
                 user.save();
                 res.redirect('/');
