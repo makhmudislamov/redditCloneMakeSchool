@@ -1,13 +1,15 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const should = chai.should();
+const Post = require("../models/post.js");
+const server = require('../server')
+var agent = chai.request.agent(server);
 
 chai.use(chaiHttp);
 
 // Import the Post model from our models folder so we
 // we can use it in our tests.
-const Post = require("../models/post.js");
-const server = require('../server')
+
 
 describe("Post", () => {
     it("should create with valid attributes at POST /posts", done => {
@@ -17,7 +19,7 @@ describe("Post", () => {
 
         // Import your Post model
         
-        var post = { title: "post title", url: "https://www.google.com", summary: "post summary" };
+        var post = { title: "post title", url: "https://www.google.com", summary: "post summary", subreddit: "politcs", author: "username" };
 
         Post.findOneAndRemove(post, function () {
             Post.find(function (err, posts) {
@@ -39,5 +41,14 @@ describe("Post", () => {
             });
         });
 
+    });
+
+    before(done => {
+        agent
+            .post("/login")
+            .send({ username: "testone", password: "password" })
+            .end(function (err, res) {
+                done();
+            });
     });
 });
