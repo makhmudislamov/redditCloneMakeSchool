@@ -37,6 +37,7 @@ module.exports = function (app) {
                 user.comments.unshift(comment);
                 user.save();
                 res.redirect('/');
+                // res.redirect('/posts/' + req.params.postId); >> giving error of Comment validation failed: postId: Path `postId` is required.
             })
             .then(post => {
                 res.redirect('/');
